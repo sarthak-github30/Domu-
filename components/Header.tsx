@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { User } from "firebase/auth";
+import Link from "next/link";
 import { auth } from "../lib/firebase";
 
 interface HeaderProps {
@@ -44,12 +45,12 @@ export default function Header({ user, onMenuToggle }: HeaderProps) {
                 <div className="px-4 py-2 text-sm text-gray-700 border-b">
                   <p className="font-medium">{user.email}</p>
                 </div>
-                <a
+                <Link
                   href="/settings"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                   Settings
-                </a>
+                </Link>
               </div>
             )}
           </div>
