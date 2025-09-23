@@ -285,7 +285,7 @@ export default function PaymentsPage() {
               <CardHeader>
                 <CardTitle>Payment Summary</CardTitle>
                 <CardDescription>
-                  Overview of this month's collections
+                  Overview of this month&apos;s collections
                 </CardDescription>
               </CardHeader>
               <CardContent>

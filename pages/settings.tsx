@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { User, updatePassword, updateProfile } from "firebase/auth";
+import { User, updatePassword, updateProfile, AuthError } from "firebase/auth";
 import { auth } from "../lib/firebase";
 import ProtectedRoute from "../components/ProtectedRoute";
 import Sidebar from "../components/Sidebar";
@@ -76,8 +76,9 @@ export default function SettingsPage() {
           confirmPassword: "",
         });
       }
-    } catch (error: any) {
-      setMessage(error.message || "Failed to update password");
+    } catch (error) {
+      const authError = error as AuthError;
+      setMessage(authError.message || "Failed to update password");
     } finally {
       setIsLoading(false);
     }
@@ -95,8 +96,9 @@ export default function SettingsPage() {
         });
         setMessage("Profile updated successfully!");
       }
-    } catch (error: any) {
-      setMessage(error.message || "Failed to update profile");
+    } catch (error) {
+      const authError = error as AuthError;
+      setMessage(authError.message || "Failed to update profile");
     } finally {
       setIsLoading(false);
     }

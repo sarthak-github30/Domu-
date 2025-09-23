@@ -9,7 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Search, Plus, MoreHorizontal, Edit, Trash2, Eye, Filter } from "lucide-react";
+import { Search, Plus, Edit, Trash2, Eye, Filter } from "lucide-react";
 
 interface Tenant {
   id: string;
@@ -130,7 +130,7 @@ export default function TenantsPage() {
                   <DialogHeader>
                     <DialogTitle>Add New Tenant</DialogTitle>
                     <DialogDescription>
-                      Enter the tenant's information to add them to the system.
+                      Enter the tenant&apos;s information to add them to the system.
                     </DialogDescription>
                   </DialogHeader>
                   <form onSubmit={handleAddTenant} className="space-y-4">
