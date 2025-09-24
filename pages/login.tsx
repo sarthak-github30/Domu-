@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../lib/firebase";
 import { useRouter } from "next/router";
 import { Button } from "@/components/ui/button";
@@ -12,9 +12,12 @@ import { Building2, Mail, Lock, Eye, EyeOff, Users, CreditCard, BarChart3 } from
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isSignUp, setIsSignUp] = useState(false);
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -33,6 +36,33 @@ export default function LoginPage() {
       }, 1500);
     } catch (err) {
       setMessage(err instanceof Error ? err.message : 'Invalid email or password');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSignUp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setMessage("");
+
+    if (password !== confirmPassword) {
+      setMessage("Passwords do not match");
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      const userCred = await createUserWithEmailAndPassword(auth, email, password);
+      const token = await userCred.user.getIdToken();
+
+      sessionStorage.setItem("fb_token", token);
+      setMessage("✅ Account created successfully! Redirecting...");
+      setTimeout(() => {
+        router.push("/dashboard");
+      }, 1500);
+    } catch (err) {
+      setMessage(err instanceof Error ? err.message : 'Failed to create account');
     } finally {
       setIsLoading(false);
     }
@@ -106,7 +136,7 @@ export default function LoginPage() {
         initial="hidden"
         animate="visible"
       >
-        {/* Login Card */}
+        {/* Login/SignUp Card */}
         <motion.div variants={itemVariants}>
           <Card className="bg-white/80 backdrop-blur-lg border-white/20 shadow-2xl">
             <CardHeader className="text-center space-y-4">
@@ -119,17 +149,17 @@ export default function LoginPage() {
               </motion.div>
               <div>
                 <CardTitle className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-                  Welcome Back
+                  {isSignUp ? "Create Account" : "Welcome Back"}
                 </CardTitle>
                 <CardDescription className="text-gray-600 mt-2">
-                  Sign in to Domu PG Management
+                  {isSignUp ? "Join Domu PG Management" : "Sign in to Domu PG Management"}
                 </CardDescription>
               </div>
             </CardHeader>
 
             <CardContent className="space-y-6">
-              {/* Login Form */}
-              <form onSubmit={handleLogin} className="space-y-4">
+              {/* Login/SignUp Form */}
+              <form onSubmit={isSignUp ? handleSignUp : handleLogin} className="space-y-4">
                 {/* Email Field */}
                 <motion.div variants={itemVariants} className="space-y-2">
                   <Label htmlFor="email">Email Address</Label>
@@ -177,29 +207,68 @@ export default function LoginPage() {
                   </div>
                 </motion.div>
 
-                {/* Remember Me & Forgot Password */}
-                <motion.div variants={itemVariants} className="flex items-center justify-between text-sm">
-                  <label className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
-                    />
-                    <span className="text-muted-foreground">Remember me</span>
-                  </label>
-                  <Button variant="link" className="p-0 h-auto text-primary">
-                    Forgot password?
-                  </Button>
-                </motion.div>
+                {/* Confirm Password Field - Only for Sign Up */}
+                {isSignUp && (
+                  <motion.div variants={itemVariants} className="space-y-2">
+                    <Label htmlFor="confirmPassword">Confirm Password</Label>
+                    <div className="relative">
+                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="confirmPassword"
+                        type={showConfirmPassword ? "text" : "password"}
+                        required
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        className="pl-10 pr-10"
+                        placeholder="Confirm your password"
+                      />
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
+                      >
+                        {showConfirmPassword ? (
+                          <EyeOff className="h-4 w-4 text-muted-foreground" />
+                        ) : (
+                          <Eye className="h-4 w-4 text-muted-foreground" />
+                        )}
+                      </Button>
+                    </div>
+                  </motion.div>
+                )}
 
-                {/* Login Button */}
-                <motion.div variants={itemVariants}>
+                {/* Remember Me & Forgot Password - Only for Login */}
+                {!isSignUp && (
+                  <motion.div variants={itemVariants} className="flex items-center justify-between text-sm">
+                    <label className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                      />
+                      <span className="text-muted-foreground">Remember me</span>
+                    </label>
+                    <Button variant="link" className="p-0 h-auto text-primary">
+                      Forgot password?
+                    </Button>
+                  </motion.div>
+                )}
+
+                {/* Dual Action Buttons */}
+                <motion.div variants={itemVariants} className="grid grid-cols-2 gap-3">
                   <Button
-                    type="submit"
-                    disabled={isLoading}
+                    type="button"
+                    variant={!isSignUp ? "default" : "outline"}
+                    onClick={() => {
+                      setIsSignUp(false);
+                      setMessage("");
+                      setConfirmPassword("");
+                    }}
                     className="w-full"
-                    size="lg"
+                    disabled={isLoading}
                   >
-                    {isLoading ? (
+                    {isLoading && !isSignUp ? (
                       <div className="flex items-center">
                         <motion.div
                           className="w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"
@@ -210,6 +279,29 @@ export default function LoginPage() {
                       </div>
                     ) : (
                       "Sign In"
+                    )}
+                  </Button>
+                  <Button
+                    type="button"
+                    variant={isSignUp ? "default" : "outline"}
+                    onClick={() => {
+                      setIsSignUp(true);
+                      setMessage("");
+                    }}
+                    className="w-full"
+                    disabled={isLoading}
+                  >
+                    {isLoading && isSignUp ? (
+                      <div className="flex items-center">
+                        <motion.div
+                          className="w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                        />
+                        Creating...
+                      </div>
+                    ) : (
+                      "Sign Up"
                     )}
                   </Button>
                 </motion.div>
@@ -230,12 +322,38 @@ export default function LoginPage() {
                 </motion.div>
               )}
 
-              {/* Footer */}
+              {/* Toggle between Login and Sign Up */}
               <motion.div variants={itemVariants} className="text-center text-sm text-muted-foreground">
-                Don&apos;t have an account?{" "}
-                <Button variant="link" className="p-0 h-auto text-primary">
-                  Contact Administrator
-                </Button>
+                {isSignUp ? (
+                  <>
+                    Already have an account?{" "}
+                    <Button 
+                      variant="link" 
+                      className="p-0 h-auto text-primary"
+                      onClick={() => {
+                        setIsSignUp(false);
+                        setMessage("");
+                        setConfirmPassword("");
+                      }}
+                    >
+                      Sign In
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    Don&apos;t have an account?{" "}
+                    <Button 
+                      variant="link" 
+                      className="p-0 h-auto text-primary"
+                      onClick={() => {
+                        setIsSignUp(true);
+                        setMessage("");
+                      }}
+                    >
+                      Sign Up
+                    </Button>
+                  </>
+                )}
               </motion.div>
             </CardContent>
           </Card>
