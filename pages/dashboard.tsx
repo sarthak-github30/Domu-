@@ -26,7 +26,6 @@ export default function DashboardPage() {
     { month: "Mar", amount: 148000, tenants: 15 },
     { month: "Apr", amount: 139000, tenants: 14 },
     { month: "May", amount: 152000, tenants: 16 },
-    { month: "Jun", amount: 145000, tenants: 15 },
   ];
 
   const stats = [
@@ -150,7 +149,7 @@ export default function DashboardPage() {
     {
       id: 3,
       title: "Contract Expiring Soon",
-      description: "3 tenants' contracts expire in 15 days",
+      description: "3 tenants&apos; contracts expire in 15 days",
       priority: "medium",
       type: "contract"
     },
@@ -189,7 +188,7 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-3xl font-bold tracking-tight text-gray-900">Dashboard</h1>
-                <p className="text-gray-600 mt-1">Welcome back! Here's what's happening at your PG.</p>
+                <p className="text-gray-600 mt-1">Welcome back! Here&apos;s what&apos;s happening at your PG.</p>
               </div>
               <div className="text-right">
                 <div className="text-sm text-gray-500">
