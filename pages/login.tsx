@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Building2, Mail, Lock, Eye, EyeOff, Users, CreditCard, BarChart3 } from "lucide-react";
+import { Shield, Mail, Lock, Eye, EyeOff, User } from "lucide-react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -23,7 +23,6 @@ export default function LoginPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setMessage("");
 
     try {
       const userCred = await signInWithEmailAndPassword(auth, email, password);
@@ -89,300 +88,402 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-100 flex items-center justify-center p-4">
-      {/* Animated Background */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div 
-          className="absolute -top-40 -right-40 w-80 h-80 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20"
-          animate={{ 
-            scale: [1, 1.2, 1],
-            rotate: [0, 180, 360]
-          }}
-          transition={{ 
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-        <motion.div 
-          className="absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-400 rounded-full mix-blend-multiply filter blur-xl opacity-20"
-          animate={{ 
-            scale: [1.2, 1, 1.2],
-            rotate: [360, 180, 0]
-          }}
-          transition={{ 
-            duration: 25,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-        <motion.div 
-          className="absolute top-40 left-40 w-60 h-60 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-20"
-          animate={{ 
-            scale: [1, 1.3, 1],
-            rotate: [0, -180, -360]
-          }}
-          transition={{ 
-            duration: 30,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
+    <div className="min-h-screen flex bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 relative overflow-hidden">
+      {/* Geometric Pattern Overlay */}
+      <div className="absolute inset-0 opacity-10">
+        <svg
+          className="absolute inset-0 w-full h-full"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1000 1000"
+          preserveAspectRatio="xMidYMid slice"
+        >
+          <defs>
+            <pattern id="grid" x="0" y="0" width="50" height="50" patternUnits="userSpaceOnUse">
+              <path
+                d="M 50 0 L 0 0 0 50"
+                stroke="rgba(255,255,255,0.1)"
+                strokeWidth="1"
+                fill="none"
+              />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
       </div>
 
+      {/* Animated Orbs */}
       <motion.div 
-        className="relative w-full max-w-md"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        {/* Login/SignUp Card */}
-        <motion.div variants={itemVariants}>
-          <Card className="bg-white/80 backdrop-blur-lg border-white/20 shadow-2xl">
-            <CardHeader className="text-center space-y-4">
-              <motion.div 
-                className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl shadow-lg"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Building2 className="w-8 h-8 text-white" />
-              </motion.div>
-              <div>
-                <CardTitle className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-                  {isSignUp ? "Create Account" : "Welcome Back"}
-                </CardTitle>
-                <CardDescription className="text-gray-600 mt-2">
-                  {isSignUp ? "Join Domu PG Management" : "Sign in to Domu PG Management"}
-                </CardDescription>
+        className="absolute top-20 left-16 w-32 h-32 rounded-full"
+        style={{
+          background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.3) 0%, rgba(147, 51, 234, 0.2) 100%)',
+          filter: 'blur(40px)'
+        }}
+        animate={{ 
+          scale: [1, 1.2, 1],
+          x: [0, 20, 0],
+          y: [0, -10, 0]
+        }}
+        transition={{ 
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
+
+      <motion.div 
+        className="absolute top-1/2 right-20 w-40 h-40 rounded-full"
+        style={{
+          background: 'linear-gradient(45deg, rgba(236, 72, 153, 0.3) 0%, rgba(59, 130, 246, 0.2) 100%)',
+          filter: 'blur(50px)'
+        }}
+        animate={{ 
+          scale: [1.1, 1, 1.1],
+          x: [-10, 10, -10],
+          y: [10, -10, 10]
+        }}
+        transition={{ 
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
+
+      <motion.div 
+        className="absolute bottom-1/4 left-1/3 w-28 h-28 rounded-full"
+        style={{
+          background: 'linear-gradient(225deg, rgba(16, 185, 129, 0.3) 0%, rgba(59, 130, 246, 0.2) 100%)',
+          filter: 'blur(35px)'
+        }}
+        animate={{ 
+          scale: [1, 1.3, 1],
+          rotate: [0, 180, 360]
+        }}
+        transition={{ 
+          duration: 12,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
+
+      {/* Left Side - Branding (Hidden on mobile) */}
+      <div className="hidden lg:flex lg:w-1/2 relative">
+        {/* Content */}
+        <div className="relative z-10 flex items-center justify-center w-full">
+          <motion.div 
+            className="text-center space-y-8 px-12 max-w-lg"
+            initial={{ x: -100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+          >
+            {/* Logo/Brand */}
+            <motion.div 
+              className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-3xl shadow-2xl shadow-blue-500/25"
+              whileHover={{ scale: 1.05, rotate: 5 }}
+            >
+              <Shield className="w-10 h-10 text-white" />
+            </motion.div>
+
+            {/* Heading */}
+            <div className="space-y-4">
+              <h1 className="text-4xl font-bold text-white">
+                Welcome to <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">DOMU</span>
+              </h1>
+              <p className="text-xl text-blue-200 leading-relaxed">
+                A PG Management App for streamlined hostel operations, tenant management, and seamless property administration.
+              </p>
+            </div>
+
+            {/* Feature Points */}
+            <div className="space-y-4 text-left max-w-md mx-auto">
+              {[
+                { icon: "🏠", text: "Complete PG management solution" },
+                { icon: "👥", text: "Tenant registration and tracking" },
+                { icon: "💰", text: "Automated rent and payment management" },
+                { icon: "📊", text: "Real-time occupancy and analytics" }
+              ].map((feature, i) => (
+                <motion.div
+                  key={i}
+                  className="flex items-center space-x-3 text-blue-100"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 1.2 + i * 0.1 }}
+                >
+                  <span className="text-2xl">{feature.icon}</span>
+                  <span>{feature.text}</span>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Decorative Elements */}
+            <div className="flex justify-center space-x-2 mt-8">
+              {[...Array(3)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="w-3 h-3 bg-white/30 rounded-full"
+                  animate={{
+                    scale: [1, 1.2, 1],
+                    opacity: [0.3, 0.8, 0.3]
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    delay: i * 0.3,
+                    ease: "easeInOut"
+                  }}
+                />
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Right Side - Login Form */}
+      <div className="flex-1 relative">
+        {/* Form Container */}
+        <div className="relative z-10 min-h-screen flex items-center justify-center p-4 lg:p-8">
+          <motion.div 
+            className="w-full max-w-md"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            {/* Mobile Logo (shown only on small screens) */}
+            <motion.div 
+              className="lg:hidden text-center mb-8"
+              initial={{ y: -20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl shadow-lg shadow-blue-500/25 mb-4">
+                <Shield className="w-8 h-8 text-white" />
               </div>
-            </CardHeader>
+              <h1 className="text-2xl font-bold text-white">
+                Welcome to <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">DOMU</span>
+              </h1>
+            </motion.div>
 
-            <CardContent className="space-y-6">
-              {/* Login/SignUp Form */}
-              <form onSubmit={isSignUp ? handleSignUp : handleLogin} className="space-y-4">
-                {/* Email Field */}
-                <motion.div variants={itemVariants} className="space-y-2">
-                  <Label htmlFor="email">Email Address</Label>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      id="email"
-                      type="email"
-                      required
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="pl-10"
-                      placeholder="Enter your email"
-                    />
-                  </div>
+            {/* Login Card */}
+            <Card className="bg-white/95 backdrop-blur-xl border-white/20 shadow-2xl shadow-black/20">
+              <CardHeader className="text-center space-y-4 pb-8">
+                <motion.div 
+                  className="hidden lg:inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl shadow-lg shadow-blue-500/25"
+                  whileHover={{ scale: 1.05, rotate: 5 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Shield className="w-8 h-8 text-white" />
                 </motion.div>
+                <div>
+                  <CardTitle className="text-2xl font-bold text-gray-900">
+                    {isSignUp ? "Create Account" : "Welcome Back"}
+                  </CardTitle>
+                  <CardDescription className="text-gray-600 mt-2">
+                    {isSignUp ? "Join our PG management platform today" : "Sign in to your account"}
+                  </CardDescription>
+                </div>
+              </CardHeader>
 
-                {/* Password Field */}
-                <motion.div variants={itemVariants} className="space-y-2">
-                  <Label htmlFor="password">Password</Label>
-                  <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      id="password"
-                      type={showPassword ? "text" : "password"}
-                      required
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      className="pl-10 pr-10"
-                      placeholder="Enter your password"
-                    />
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
-                    >
-                      {showPassword ? (
-                        <EyeOff className="h-4 w-4 text-muted-foreground" />
-                      ) : (
-                        <Eye className="h-4 w-4 text-muted-foreground" />
-                      )}
-                    </Button>
-                  </div>
-                </motion.div>
-
-                {/* Confirm Password Field - Only for Sign Up */}
-                {isSignUp && (
+              <CardContent className="space-y-6">
+                <form onSubmit={isSignUp ? handleSignUp : handleLogin} className="space-y-5">
+                  {/* Email Field */}
                   <motion.div variants={itemVariants} className="space-y-2">
-                    <Label htmlFor="confirmPassword">Confirm Password</Label>
+                    <Label htmlFor="email" className="text-gray-700 text-sm font-medium">Email Address</Label>
                     <div className="relative">
-                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                       <Input
-                        id="confirmPassword"
-                        type={showConfirmPassword ? "text" : "password"}
+                        id="email"
+                        type="email"
                         required
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        className="pl-10 pr-10"
-                        placeholder="Confirm your password"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="h-11 pl-10 border-gray-200 focus:border-blue-500 focus:ring-blue-500/20 transition-all duration-200 rounded-lg"
+                        placeholder="Enter your email"
+                      />
+                    </div>
+                  </motion.div>
+
+                  {/* Password Field */}
+                  <motion.div variants={itemVariants} className="space-y-2">
+                    <Label htmlFor="password" className="text-gray-700 text-sm font-medium">Password</Label>
+                    <div className="relative">
+                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                      <Input
+                        id="password"
+                        type={showPassword ? "text" : "password"}
+                        required
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="h-11 pl-10 pr-10 border-gray-200 focus:border-blue-500 focus:ring-blue-500/20 transition-all duration-200 rounded-lg"
+                        placeholder="Enter your password"
                       />
                       <Button
                         type="button"
                         variant="ghost"
                         size="icon"
-                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-1 top-1/2 transform -translate-y-1/2 h-8 w-8 hover:bg-gray-100 transition-colors"
                       >
-                        {showConfirmPassword ? (
-                          <EyeOff className="h-4 w-4 text-muted-foreground" />
+                        {showPassword ? (
+                          <EyeOff className="h-4 w-4 text-gray-400" />
                         ) : (
-                          <Eye className="h-4 w-4 text-muted-foreground" />
+                          <Eye className="h-4 w-4 text-gray-400" />
                         )}
                       </Button>
                     </div>
                   </motion.div>
-                )}
 
-                {/* Remember Me & Forgot Password - Only for Login */}
-                {!isSignUp && (
-                  <motion.div variants={itemVariants} className="flex items-center justify-between text-sm">
-                    <label className="flex items-center space-x-2">
-                      <input
-                        type="checkbox"
-                        className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
-                      />
-                      <span className="text-muted-foreground">Remember me</span>
-                    </label>
-                    <Button variant="link" className="p-0 h-auto text-primary">
-                      Forgot password?
+                  {/* Confirm Password Field - Only for Sign Up */}
+                  {isSignUp && (
+                    <motion.div 
+                      variants={itemVariants} 
+                      className="space-y-2"
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                    >
+                      <Label htmlFor="confirmPassword" className="text-gray-700 text-sm font-medium">Confirm Password</Label>
+                      <div className="relative">
+                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                        <Input
+                          id="confirmPassword"
+                          type={showConfirmPassword ? "text" : "password"}
+                          required
+                          value={confirmPassword}
+                          onChange={(e) => setConfirmPassword(e.target.value)}
+                          className="h-11 pl-10 pr-10 border-gray-200 focus:border-blue-500 focus:ring-blue-500/20 transition-all duration-200 rounded-lg"
+                          placeholder="Confirm your password"
+                        />
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                          className="absolute right-1 top-1/2 transform -translate-y-1/2 h-8 w-8 hover:bg-gray-100 transition-colors"
+                        >
+                          {showConfirmPassword ? (
+                            <EyeOff className="h-4 w-4 text-gray-400" />
+                          ) : (
+                            <Eye className="h-4 w-4 text-gray-400" />
+                          )}
+                        </Button>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {/* Remember Me - Only for Login */}
+                  {!isSignUp && (
+                    <motion.div variants={itemVariants} className="flex items-center justify-between">
+                      <label className="flex items-center space-x-2 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded transition-colors"
+                        />
+                        <span className="text-sm text-gray-600">Remember me</span>
+                      </label>
+                      <Button variant="link" className="p-0 h-auto text-blue-600 hover:text-blue-700 text-sm">
+                        Forgot password?
+                      </Button>
+                    </motion.div>
+                  )}
+
+                  {/* Submit Button */}
+                  <motion.div variants={itemVariants}>
+                    <Button
+                      type="submit"
+                      className="w-full h-11 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium rounded-lg transition-all duration-200 transform hover:scale-[1.02] shadow-lg shadow-blue-500/25"
+                      disabled={isLoading}
+                    >
+                      {isLoading ? (
+                        <div className="flex items-center justify-center">
+                          <motion.div
+                            className="w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                          />
+                          {isSignUp ? "Creating Account..." : "Signing In..."}
+                        </div>
+                      ) : (
+                        isSignUp ? "Create Account" : "Sign In"
+                      )}
                     </Button>
+                  </motion.div>
+                </form>
+
+                {/* Message Display */}
+                {message && (
+                  <motion.div 
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className={`p-3 rounded-lg text-sm ${
+                      message.includes("✅") || message.includes("successfully")
+                        ? "bg-green-50 text-green-800 border border-green-200"
+                        : "bg-red-50 text-red-800 border border-red-200"
+                    }`}
+                  >
+                    {message}
                   </motion.div>
                 )}
 
-                {/* Dual Action Buttons */}
-                <motion.div variants={itemVariants} className="grid grid-cols-2 gap-3">
-                  <Button
-                    type="button"
-                    variant={!isSignUp ? "default" : "outline"}
-                    onClick={() => {
-                      setIsSignUp(false);
-                      setMessage("");
-                      setConfirmPassword("");
-                    }}
-                    className="w-full"
-                    disabled={isLoading}
-                  >
-                    {isLoading && !isSignUp ? (
-                      <div className="flex items-center">
-                        <motion.div
-                          className="w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"
-                          animate={{ rotate: 360 }}
-                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                        />
-                        Signing in...
-                      </div>
-                    ) : (
-                      "Sign In"
-                    )}
-                  </Button>
-                  <Button
-                    type="button"
-                    variant={isSignUp ? "default" : "outline"}
-                    onClick={() => {
-                      setIsSignUp(true);
-                      setMessage("");
-                    }}
-                    className="w-full"
-                    disabled={isLoading}
-                  >
-                    {isLoading && isSignUp ? (
-                      <div className="flex items-center">
-                        <motion.div
-                          className="w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"
-                          animate={{ rotate: 360 }}
-                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                        />
-                        Creating...
-                      </div>
-                    ) : (
-                      "Sign Up"
-                    )}
-                  </Button>
-                </motion.div>
-              </form>
-
-              {/* Message Display */}
-              {message && (
-                <motion.div 
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className={`p-4 rounded-lg text-sm font-medium ${
-                    message.includes("✅") || message.includes("successfully")
-                      ? "bg-green-50 text-green-800 border border-green-200"
-                      : "bg-red-50 text-red-800 border border-red-200"
-                  }`}
-                >
-                  {message}
-                </motion.div>
-              )}
-
-              {/* Toggle between Login and Sign Up */}
-              <motion.div variants={itemVariants} className="text-center text-sm text-muted-foreground">
-                {isSignUp ? (
-                  <>
-                    Already have an account?{" "}
+                {/* Social Login Options */}
+                <motion.div variants={itemVariants} className="space-y-4">
+                  <div className="relative">
+                    <div className="absolute inset-0 flex items-center">
+                      <div className="w-full border-t border-gray-200" />
+                    </div>
+                    <div className="relative flex justify-center text-sm">
+                      <span className="px-3 bg-white text-gray-500">or continue with</span>
+                    </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-3">
                     <Button 
+                      type="button"
+                      variant="outline" 
+                      className="h-10 border-gray-200 hover:bg-gray-50 transition-colors"
+                    >
+                      <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                      </svg>
+                      Google
+                    </Button>
+                    <Button 
+                      type="button"
+                      variant="outline" 
+                      className="h-10 border-gray-200 hover:bg-gray-50 transition-colors"
+                    >
+                      <svg className="w-4 h-4 mr-2" fill="#1877f2" viewBox="0 0 24 24">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                      </svg>
+                      Facebook
+                    </Button>
+                  </div>
+                </motion.div>
+
+                {/* Toggle Sign Up */}
+                <motion.div variants={itemVariants} className="text-center">
+                  <p className="text-sm text-gray-600">
+                    {isSignUp ? "Already have an account?" : "Don't have an account?"}
+                    <Button 
+                      type="button"
                       variant="link" 
-                      className="p-0 h-auto text-primary"
+                      className="p-0 ml-1 text-blue-600 hover:text-blue-700 font-medium"
                       onClick={() => {
-                        setIsSignUp(false);
+                        setIsSignUp(!isSignUp);
                         setMessage("");
                         setConfirmPassword("");
                       }}
                     >
-                      Sign In
+                      {isSignUp ? "Sign in" : "Sign up"}
                     </Button>
-                  </>
-                ) : (
-                  <>
-                    Don&apos;t have an account?{" "}
-                    <Button 
-                      variant="link" 
-                      className="p-0 h-auto text-primary"
-                      onClick={() => {
-                        setIsSignUp(true);
-                        setMessage("");
-                      }}
-                    >
-                      Sign Up
-                    </Button>
-                  </>
-                )}
-              </motion.div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        {/* Features Preview */}
-        <motion.div 
-          variants={itemVariants}
-          className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4"
-        >
-          {[
-            { icon: Users, label: "Tenant Management", color: "blue" },
-            { icon: CreditCard, label: "Payment Tracking", color: "green" },
-            { icon: BarChart3, label: "Analytics Dashboard", color: "purple" }
-          ].map((feature, index) => (
-            <motion.div
-              key={feature.label}
-              className="bg-white/60 backdrop-blur-sm rounded-xl p-4 border border-white/20 text-center"
-              whileHover={{ scale: 1.05 }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <div className={`w-8 h-8 bg-${feature.color}-100 rounded-lg flex items-center justify-center mx-auto mb-2`}>
-                <feature.icon className={`w-4 h-4 text-${feature.color}-600`} />
-              </div>
-              <p className="text-xs text-gray-600 font-medium">{feature.label}</p>
-            </motion.div>
-          ))}
-        </motion.div>
-      </motion.div>
+                  </p>
+                </motion.div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
+      </div>
     </div>
   );
 }
