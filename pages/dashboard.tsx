@@ -19,94 +19,63 @@ export default function DashboardPage() {
     return () => unsubscribe();
   }, []);
 
-  // Sample data for charts
+  // Realistic data for charts
   const monthlyData = [
-    { month: "Feb", amount: 135000, tenants: 9 },
-    { month: "Mar", amount: 128000, tenants: 8 },
-    { month: "Apr", amount: 142000, tenants: 10 },
-    { month: "May", amount: 138000, tenants: 9 },
-    { month: "Jun", amount: 155000, tenants: 12 },
+    { month: "Jan", amount: 142000, tenants: 14 },
+    { month: "Feb", amount: 135000, tenants: 13 },
+    { month: "Mar", amount: 148000, tenants: 15 },
+    { month: "Apr", amount: 139000, tenants: 14 },
+    { month: "May", amount: 152000, tenants: 16 },
+    { month: "Jun", amount: 145000, tenants: 15 },
   ];
 
   const stats = [
     {
       title: "Total Tenants",
-      value: "12",
-      change: "+2 from last month",
+      value: "15",
+      change: "+1 from last month",
       icon: Users,
       bgColor: "bg-blue-500",
       textColor: "text-white",
     },
     {
       title: "Available Rooms",
-      value: "5",
-      change: "3 occupied",
+      value: "3",
+      change: "17 occupied",
       icon: Building2,
       bgColor: "bg-green-500",
       textColor: "text-white",
     },
     {
-      title: "Pending Payments",
-      value: "3",
-      change: "₹45,000 pending",
+      title: "Pending Rent",
+      value: "2",
+      change: "₹24,000 overdue",
       icon: Clock,
-      bgColor: "bg-red-500",
+      bgColor: "bg-orange-500",
       textColor: "text-white",
     },
     {
-      title: "Total Revenue",
-      value: "₹1,25,000",
-      change: "+12% from last month",
+      title: "Monthly Revenue",
+      value: "₹1,45,000",
+      change: "+8% from last month",
       icon: DollarSign,
       bgColor: "bg-purple-500",
       textColor: "text-white",
     },
     {
-      title: "Total Complaints",
-      value: "2",
-      change: "1 resolved",
+      title: "Active Complaints",
+      value: "1",
+      change: "2 resolved this week",
       icon: AlertTriangle,
-      bgColor: "bg-blue-600",
+      bgColor: "bg-red-500",
       textColor: "text-white",
     },
     {
-      title: "Monthly Income",
-      value: "₹30,000",
-      change: "This month",
+      title: "Monthly Expenses",
+      value: "₹18,500",
+      change: "Maintenance & utilities",
       icon: TrendingUp,
-      bgColor: "bg-green-600",
-      textColor: "text-white",
-    },
-    {
-      title: "Total Tasks",
-      value: "8",
-      change: "3 completed",
-      icon: CheckCircle,
-      bgColor: "bg-orange-500",
-      textColor: "text-white",
-    },
-    {
-      title: "Maintenance",
-      value: "5",
-      change: "2 pending",
-      icon: FileText,
-      bgColor: "bg-red-600",
-      textColor: "text-white",
-    },
-    {
-      title: "Expenses",
-      value: "₹4,050",
-      change: "This month",
-      icon: DollarSign,
-      bgColor: "bg-green-700",
-      textColor: "text-white",
-    },
-    {
-      title: "Total Rooms",
-      value: "10",
-      change: "All floors",
-      icon: Home,
-      bgColor: "bg-orange-600",
+      bgColor: "bg-indigo-500",
       textColor: "text-white",
     },
   ];
@@ -114,35 +83,76 @@ export default function DashboardPage() {
   const recentActivities = [
     {
       id: 1,
-      type: "tenant",
-      message: "New tenant John Doe moved into Room 101",
-      time: "2 hours ago",
-      icon: Users,
+      type: "payment",
+      message: "Rent payment received from Priya Sharma (Room 204) - ₹12,000",
+      time: "45 minutes ago",
+      icon: DollarSign,
       color: "text-green-600",
     },
     {
       id: 2,
-      type: "payment",
-      message: "Payment received from Jane Smith (₹12,000)",
-      time: "4 hours ago",
-      icon: DollarSign,
+      type: "tenant",
+      message: "Rahul Kumar completed move-in process for Room 107",
+      time: "2 hours ago",
+      icon: Users,
       color: "text-blue-600",
     },
     {
       id: 3,
       type: "maintenance",
-      message: "Maintenance request submitted for Room 203",
-      time: "1 day ago",
+      message: "WiFi connectivity issue reported in Room 205 - Assigned to technician",
+      time: "4 hours ago",
       icon: Activity,
       color: "text-yellow-600",
     },
     {
       id: 4,
+      type: "complaint",
+      message: "Hot water complaint in Room 103 marked as resolved",
+      time: "6 hours ago",
+      icon: CheckCircle,
+      color: "text-green-600",
+    },
+    {
+      id: 5,
       type: "room",
-      message: "Room 205 is now available",
-      time: "2 days ago",
+      message: "Room 301 lease renewal signed for 11 months",
+      time: "1 day ago",
       icon: Building2,
       color: "text-purple-600",
+    },
+    {
+      id: 6,
+      type: "expense",
+      message: "Monthly electricity bill paid - ₹8,200",
+      time: "2 days ago",
+      icon: FileText,
+      color: "text-red-600",
+    },
+  ];
+
+  const urgentItems = [
+    {
+      id: 1,
+      title: "Overdue Rent Payment",
+      description: "Amit Singh (Room 302) - 5 days overdue",
+      amount: "₹12,000",
+      priority: "high",
+      type: "payment"
+    },
+    {
+      id: 2,
+      title: "AC Repair Required",
+      description: "Room 205 - Cooling issue reported",
+      priority: "medium",
+      type: "maintenance"
+    },
+    {
+      id: 3,
+      title: "Contract Expiring Soon",
+      description: "3 tenants' contracts expire in 15 days",
+      priority: "medium",
+      type: "contract"
     },
   ];
 
@@ -172,133 +182,208 @@ export default function DashboardPage() {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="space-y-8 bg-gray-100 min-h-screen p-6"
+          className="space-y-6 bg-gray-50 min-h-screen p-6"
         >
           {/* Header */}
           <motion.div variants={itemVariants}>
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-4xl font-bold tracking-tight text-gray-900">Dashboard</h1>
-                <p className="text-lg text-gray-600 mt-1">Control panel</p>
+                <h1 className="text-3xl font-bold tracking-tight text-gray-900">Dashboard</h1>
+                <p className="text-gray-600 mt-1">Welcome back! Here's what's happening at your PG.</p>
               </div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="text-right"
-              >
+              <div className="text-right">
                 <div className="text-sm text-gray-500">
-                  Welcome back, {user?.email}
+                  {new Date().toLocaleDateString('en-IN', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                  })}
                 </div>
                 <div className="text-xs text-gray-400">
                   Last updated: {new Date().toLocaleTimeString()}
                 </div>
-              </motion.div>
+              </div>
             </div>
           </motion.div>
 
           {/* Stats Cards */}
           <motion.div 
             variants={itemVariants}
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
             {stats.map((stat, index) => (
               <motion.div
                 key={stat.title}
-                whileHover={{ scale: 1.05, y: -5 }}
+                whileHover={{ scale: 1.02, y: -2 }}
                 transition={{ delay: index * 0.05, type: "spring", stiffness: 300 }}
               >
-                <div className={`${stat.bgColor} rounded-lg p-6 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer`}>
-                  <div className="flex items-center justify-between mb-4">
-                    <stat.icon className={`h-8 w-8 ${stat.textColor}`} />
-                    <div className="text-right">
-                      <div className={`text-3xl font-bold ${stat.textColor}`}>
-                        {stat.value}
+                <Card className="border-0 shadow-md hover:shadow-lg transition-shadow duration-300">
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-gray-600 mb-1">{stat.title}</p>
+                        <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+                        <p className="text-xs text-gray-500 mt-1">{stat.change}</p>
+                      </div>
+                      <div className={`${stat.bgColor} p-3 rounded-full`}>
+                        <stat.icon className={`h-6 w-6 ${stat.textColor}`} />
                       </div>
                     </div>
-                  </div>
-                  <div className={`${stat.textColor} font-semibold text-sm mb-2`}>
-                    {stat.title}
-                  </div>
-                  <div className={`${stat.textColor} text-xs opacity-80`}>
-                    {stat.change}
-                  </div>
-                  <div className="mt-3">
-                    <a href="#" className={`${stat.textColor} text-xs underline opacity-80 hover:opacity-100 transition-opacity`}>
-                      More info
-                    </a>
-                  </div>
-                </div>
+                  </CardContent>
+                </Card>
               </motion.div>
             ))}
           </motion.div>
 
-          {/* Bottom Section Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-            {/* Fully Booked Rooms */}
-            <motion.div variants={itemVariants}>
-              <div className="bg-purple-600 rounded-lg p-6 shadow-lg">
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <h3 className="text-white text-xl font-bold">Fully Booked Room</h3>
-                    <p className="text-purple-100 text-sm">All rooms occupied</p>
+          {/* Charts and Summary Section */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Monthly Revenue Chart */}
+            <motion.div variants={itemVariants} className="lg:col-span-2">
+              <Card className="border-0 shadow-md">
+                <CardHeader>
+                  <CardTitle className="text-lg font-semibold">Monthly Revenue Trend</CardTitle>
+                  <CardDescription>Revenue and tenant count over the last 6 months</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-80">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <LineChart data={monthlyData}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                        <XAxis dataKey="month" stroke="#666" />
+                        <YAxis stroke="#666" />
+                        <Tooltip 
+                          formatter={(value, name) => [
+                            name === 'amount' ? `₹${value.toLocaleString()}` : value,
+                            name === 'amount' ? 'Revenue' : 'Tenants'
+                          ]}
+                        />
+                        <Line 
+                          type="monotone" 
+                          dataKey="amount" 
+                          stroke="#8b5cf6" 
+                          strokeWidth={3}
+                          dot={{ fill: "#8b5cf6", strokeWidth: 2, r: 4 }}
+                        />
+                      </LineChart>
+                    </ResponsiveContainer>
                   </div>
-                  <Building2 className="h-8 w-8 text-white" />
-                </div>
-                <div className="text-white text-3xl font-bold mb-2">8</div>
-                <div className="text-purple-100 text-sm">Out of 10 rooms</div>
-                <div className="mt-4">
-                  <a href="#" className="text-white text-sm underline opacity-80 hover:opacity-100 transition-opacity">
-                    View Details
-                  </a>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
             </motion.div>
 
-            {/* Pending Payment */}
+            {/* Urgent Actions */}
             <motion.div variants={itemVariants}>
-              <div className="bg-red-600 rounded-lg p-6 shadow-lg">
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <h3 className="text-white text-xl font-bold">Pending Payment</h3>
-                    <p className="text-red-100 text-sm">Awaiting collection</p>
-                  </div>
-                  <Clock className="h-8 w-8 text-white" />
-                </div>
-                <div className="text-white text-3xl font-bold mb-2">₹45,000</div>
-                <div className="text-red-100 text-sm">From 3 tenants</div>
-                <div className="mt-4">
-                  <a href="#" className="text-white text-sm underline opacity-80 hover:opacity-100 transition-opacity">
-                    View Details
-                  </a>
-                </div>
-              </div>
+              <Card className="border-0 shadow-md">
+                <CardHeader>
+                  <CardTitle className="text-lg font-semibold flex items-center">
+                    <AlertTriangle className="h-5 w-5 text-orange-500 mr-2" />
+                    Urgent Actions
+                  </CardTitle>
+                  <CardDescription>Items requiring immediate attention</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  {urgentItems.map((item) => (
+                    <div key={item.id} className="p-3 bg-gray-50 rounded-lg border-l-4 border-orange-400">
+                      <div className="flex justify-between items-start mb-1">
+                        <h4 className="font-medium text-sm text-gray-900">{item.title}</h4>
+                        {item.amount && (
+                          <span className="text-sm font-semibold text-red-600">{item.amount}</span>
+                        )}
+                      </div>
+                      <p className="text-xs text-gray-600">{item.description}</p>
+                      <div className="mt-2">
+                        <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
+                          item.priority === 'high' 
+                            ? 'bg-red-100 text-red-800' 
+                            : 'bg-yellow-100 text-yellow-800'
+                        }`}>
+                          {item.priority} priority
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
             </motion.div>
           </div>
 
-          {/* Recent Activity */}
-          <motion.div variants={itemVariants} className="mt-8">
-            <div className="bg-white rounded-lg p-6 shadow-lg border">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Recent Activity</h3>
-              <div className="space-y-3">
-                {recentActivities.map((activity, index) => (
-                  <motion.div
-                    key={activity.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="flex items-center space-x-4 p-3 rounded-lg hover:bg-gray-50 transition-colors"
-                  >
-                    <div className={`p-2 rounded-full ${activity.color.replace('text-', 'bg-').replace('-600', '-100')}`}>
-                      <activity.icon className={`h-4 w-4 ${activity.color}`} />
+          {/* Quick Stats Row */}
+          <motion.div variants={itemVariants}>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Occupancy Rate */}
+              <Card className="border-0 shadow-md bg-gradient-to-r from-blue-500 to-blue-600 text-white">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-blue-100 text-sm font-medium">Occupancy Rate</p>
+                      <p className="text-3xl font-bold">85%</p>
+                      <p className="text-blue-100 text-xs">17 of 20 rooms occupied</p>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-900">{activity.message}</p>
-                      <p className="text-xs text-gray-500">{activity.time}</p>
+                    <Building2 className="h-8 w-8 text-blue-100" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Collection Rate */}
+              <Card className="border-0 shadow-md bg-gradient-to-r from-green-500 to-green-600 text-white">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-green-100 text-sm font-medium">Collection Rate</p>
+                      <p className="text-3xl font-bold">92%</p>
+                      <p className="text-green-100 text-xs">13 of 15 tenants paid</p>
                     </div>
-                  </motion.div>
-                ))}
-              </div>
+                    <DollarSign className="h-8 w-8 text-green-100" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Average Stay */}
+              <Card className="border-0 shadow-md bg-gradient-to-r from-purple-500 to-purple-600 text-white">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-purple-100 text-sm font-medium">Average Stay</p>
+                      <p className="text-3xl font-bold">8.5</p>
+                      <p className="text-purple-100 text-xs">months per tenant</p>
+                    </div>
+                    <Users className="h-8 w-8 text-purple-100" />
+                  </div>
+                </CardContent>
+              </Card>
             </div>
+          </motion.div>
+
+          {/* Recent Activity */}
+          <motion.div variants={itemVariants}>
+            <Card className="border-0 shadow-md">
+              <CardHeader>
+                <CardTitle className="text-lg font-semibold">Recent Activity</CardTitle>
+                <CardDescription>Latest updates from your PG management</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {recentActivities.map((activity, index) => (
+                    <motion.div
+                      key={activity.id}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="flex items-start space-x-4 p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                    >
+                      <div className={`p-2 rounded-full ${activity.color.replace('text-', 'bg-').replace('-600', '-100')}`}>
+                        <activity.icon className={`h-4 w-4 ${activity.color}`} />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm text-gray-900">{activity.message}</p>
+                        <p className="text-xs text-gray-500 mt-1">{activity.time}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           </motion.div>
         </motion.div>
       </Layout>
